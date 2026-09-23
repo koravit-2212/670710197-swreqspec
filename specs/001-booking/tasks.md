@@ -7,10 +7,10 @@ Feature: จองคิวตรวจสุขภาพ | Spec ID: SPEC-BKG-00
 ### T-01 สร้างตารางและ migration สำหรับ `slots`, `bookings`, `audit_logs`
 - รองรับ: CON-TECH-01, DOM-PDPA-01, IF-HIS-01
 - ตรวจด้วย: ไม่มี AC ตรง ๆ เป็นงานพื้นฐานของ T-xx
-- ไฟล์ที่แตะ: backend/app/db/models.py, backend/app/db/migrations/001_init.py
+- ไฟล์ที่แตะ: backend/app/db/models.py, backend/app/db/migrations/001_init.py, backend/app/db/session.py
 - ต้องทำหลัง: ไม่มี
 - เสร็จเมื่อ: สคริปต์ migration `migrations/001_init.py` รันแล้วตาราง `slots`, `bookings`, `audit_logs` ปรากฏใน engine SQLite ทดสอบ
-- สถานะ: พร้อมทำ
+- สถานะ: เสร็จ รอทีมตรวจ
 
 ### T-02 สร้าง endpoint GET /slots และ service คำนวณช่วงว่าง
 - รองรับ: FR-BKG-01, FR-BKG-06, NFR-PERF-01
