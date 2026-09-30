@@ -4,6 +4,19 @@
 const BASE = import.meta.env.VITE_API_BASE ?? '/api'
 const USE_MOCK = import.meta.env.VITE_API_MOCK === 'true'
 
+function resolveApiBase(base) {
+  if (/^https?:\/\//.test(base)) return base.replace(/\/$/, '')
+
+  const origin =
+    typeof window !== 'undefined' && window.location?.origin
+      ? window.location.origin
+      : 'http://localhost:8000'
+
+  return `${origin}${base}`.replace(/\/$/, '')
+}
+
+const API_BASE = resolveApiBase(BASE)
+
 export const api = {
   async getSlots({ dateFrom, packageCode } = {}) {
     if (USE_MOCK) {
@@ -14,18 +27,29 @@ export const api = {
       ]
     }
     const q = new URLSearchParams({ date_from: dateFrom, package_code: packageCode })
-    const res = await fetch(`${BASE}/slots?${q}`)
-    return res.json()
+
+    try {
+      const res = await fetch(`${API_BASE}/slots?${q}`)
+      if (!res.ok) return []
+      return res.json()
+    } catch (error) {
+      return []
+    }
   },
   async createBooking({ slotId }) {
     if (USE_MOCK) {
       return { status: 201, body: { id: 123, queue_no: '0001' } }
     }
-    const res = await fetch(`${BASE}/bookings`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ slot_id: slotId }),
-    })
-    return { status: res.status, body: await res.json() }
+
+    try {
+      const res = await fetch(`${API_BASE}/bookings`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slot_id: slotId }),
+      })
+      return { status: res.status, body: await res.json() }
+    } catch (error) {
+      return { status: 503, body: { message: 'Service unavailable' } }
+    }
   },
 }

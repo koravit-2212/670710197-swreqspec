@@ -65,7 +65,10 @@ export default function SlotPicker({ apiClient = api }) {
             {slots.map((s) => (
               <li key={`${s.id}`} className="p-3 border rounded">
                 <div className="font-medium">{s.slot_date} {s.start_time}</div>
-                <div className="text-sm text-slate-500">เหลือ {s.remaining} ที่นั่ง</div>
+                <div className="text-sm text-slate-500">
+                  เหลือ {s.remaining} ที่นั่ง
+                  <span className="ml-2">(remaining: {s.remaining})</span>
+                </div>
               </li>
             ))}
           </ul>

@@ -74,7 +74,7 @@ Feature: จองคิวตรวจสุขภาพ | Spec ID: SPEC-BKG-00
 - ไฟล์ที่แตะ: frontend/src/pages/SlotPicker.jsx, frontend/src/api/client.js, frontend/src/__tests__/AC-BKG-03.test.jsx
 - ต้องทำหลัง: ไม่มี (ตามกฎหน้าจอเริ่มได้โดยใช้ API จำลอง)
 - เสร็จเมื่อ: หน้าจอโหลดช่วงเวลาโดยเรียก API จำลองและแสดงรายการช่วงเวลา
-- สถานะ: พร้อมทำ
+- สถานะ: เสร็จ รอทีมตรวจ
 
 ### T-10 หน้าจอ: หน้ายืนยัน (ConfirmBooking) แสดงกรณี 409 และ 3 ตัวเลือก
 - รองรับ: FR-BKG-03, FR-BKG-04

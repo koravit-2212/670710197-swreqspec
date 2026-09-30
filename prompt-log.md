@@ -37,6 +37,17 @@
 
 ---
 
+## 2569-09-30 คำสั่ง: /implement T-09
+
+- เครื่องมือ: Copilot ใน Codespaces
+- ไฟล์ที่สร้าง/แก้: frontend/src/pages/SlotPicker.jsx, frontend/src/api/client.js, frontend/src/__tests__/AC-BKG-03.test.jsx
+- ผลลัพธ์: ปรับหน้าเลือกแพ็กเกจและช่วงเวลาให้โหลดช่วงว่างจาก API mock และแสดงรายการช่วงเวลาได้จริง พร้อมจัดการ URL ที่ใช้ relative path ใน test environment ให้ไม่ล้มบน fetch
+- ผล test: รัน `cd frontend && npm test -- --run` และได้ 2/2 test ผ่าน
+- Constraint ที่ทำให้เป็นจริง: FR-BKG-01, FR-BKG-06 (หน้าเลือกแพ็กเกจและช่วงเวลาโหลดช่วงเวลาว่างและแสดงจำนวนที่นั่งคงเหลือได้ตามที่กำหนด)
+- สิ่งที่เกือบต้องเดาแต่ถามแทน: ไม่มี — ปัญหาจริงคือ test environment ของ Vitest ทำให้ fetch กับ `/api/...` เป็น URL ที่ไม่ถูกต้อง และต้อง normalize origin ก่อนส่ง request
+
+---
+
 ## 2569-09-16 15:15 คำสั่ง: /plan
 
 - เครื่องมือ: Copilot ใน Codespaces
@@ -54,4 +65,15 @@
 - ไฟล์: specs/001-booking/spec.md, specs/001-booking/plan.md
 - ผลลัพธ์: สร้าง specs/001-booking/tasks.md (12 งานหลัก ตั้งแต่ T-01 ถึง T-12; 1 งานรอ Q-02)
 - หมายเหตุ: เพิ่มรายการงานและตารางตรวจความครบตามกฎของ prompt `tasks.prompt.md`
+
+---
+
+## 2569-09-28 คำสั่ง: /implement T-01
+
+- เครื่องมือ: Copilot ใน Codespaces
+- ไฟล์ที่สร้าง/แก้: backend/app/db/session.py, backend/app/db/migrations/001_init.py
+- ผลลัพธ์: ซ่อม migration ให้รันได้ผ่าน SQLite และสร้างตารางที่ต้องใช้ได้จริง: `slots`, `bookings`, `audit_logs`
+- ผล test: รันตรวจด้วย Python และยืนยันว่า `upgrade(engine)` คืนค่า `['audit_logs', 'bookings', 'slots']` และใน SQLite มีตารางครบตามเงื่อนไขของ T-01
+- Constraint ที่ทำให้เป็นจริง: CON-TECH-01 (ใช้ SQLite ในหน่วยความจำสำหรับ migration/test ตามสถาปัตยกรรมที่กำหนด), DOM-PDPA-01 (audit_logs ถูกสร้างพร้อมตาราง), IF-HIS-01 (bookings เก็บเฉพาะ hn ตาม schema)
+- สิ่งที่เกือบต้องเดาแต่ถามแทน: ไม่มี — ปัญหาจริงคือ migration filename เริ่มด้วยเลขทำให้ Python import แบบ module ไม่ได้ จึงแก้ให้รันได้ผ่าน `importlib` และ `if __name__ == "__main__":` โดยไม่ต้องเดา requirement เพิ่ม
 
