@@ -6,9 +6,11 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 
-def create_memory_engine():
-    # ใช้ SQLite ในหน่วยความจำ สำหรับรัน migration และทดสอบตาม plan.md
-    return create_engine("sqlite:///:memory:")
+def create_memory_engine(db_url: str = "sqlite:///:memory:"):
+    """Create an SQLite engine for migration and test runs.
+    รองรับ: CON-TECH-01
+    """
+    return create_engine(db_url)
 
 
 def create_session(engine):
