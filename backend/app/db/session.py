@@ -1,18 +1,17 @@
-"""
-Session and engine helper for tests and migrations.
-รองรับ: CON-TECH-01
-"""
+# สร้าง engine และ session ของฐานข้อมูล (CON-TECH-01)
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
+from app.config import DATABASE_URL
 
-def create_memory_engine(db_url: str = "sqlite:///:memory:"):
-    """Create an SQLite engine for migration and test runs.
-    รองรับ: CON-TECH-01
-    """
-    return create_engine(db_url)
+engine = create_engine(DATABASE_URL)
+SessionLocal = sessionmaker(bind=engine, autoflush=False)
 
 
-def create_session(engine):
-    Session = sessionmaker(bind=engine)
-    return Session()
+def get_db():
+    """ส่ง session ให้ API แต่ละตัว แล้วปิดเมื่อจบ"""
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
