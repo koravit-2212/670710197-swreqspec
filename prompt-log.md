@@ -68,6 +68,15 @@
 
 ---
 
+## 2569-09-23 คำสั่ง: /implement T-09
+
+- เครื่องมือ: Copilot ใน Codespaces
+- ไฟล์ที่สร้าง/แก้: frontend/src/pages/SlotPicker.jsx, frontend/src/__tests__/AC-BKG-03.test.jsx
+- ผลการรัน test: 2 tests passed (AC-BKG-03 และ setup) หลังติดตั้ง dependencies และแก้ test ให้ใช้ `vi` และ matcher ปกติ
+- สิ่งที่เกือบต้องเดาแต่ถามแทน: ไม่มี — หน้าจอใช้ API จำลองตาม plan.md จึงไม่ต้องเดา
+
+---
+
 ## 2569-09-28 คำสั่ง: /implement T-01
 
 - เครื่องมือ: Copilot ใน Codespaces
